@@ -1,12 +1,15 @@
+using Flunt.Notifications;
+
 namespace authentication.domain.entities
 {
-    public class Entity
+    public class Entity : Notifiable<Notification>
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime Modified { get; set; }
         public Guid PersonIdCreated { get; set; } = Guid.Empty;
         public string Comments { get; set; } = string.Empty;
+
 
         public authentication.Domain.Enums.EStatus Status { get; set; } = authentication.Domain.Enums.EStatus.Active;
         public void SetModified() => Modified = DateTime.UtcNow;

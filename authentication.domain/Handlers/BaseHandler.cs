@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using authentication.domain.Commands;
 using Flunt.Notifications;
 using Microsoft.Extensions.Logging;

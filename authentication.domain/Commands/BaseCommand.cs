@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Flunt.Notifications;
 using Flunt.Validations;
 
@@ -7,11 +8,10 @@ namespace authentication.domain.Commands
 
     public abstract class BaseCommand : Notifiable<Notification>, ICommand
     {
-        public Guid RequestPersonId { get; set; } = Guid.Empty;
+        [JsonIgnore] public Guid RequestPersonId { get; set; } = Guid.Empty;
+        // public string UsersApiEmail { get; set; } = string.Empty;
 
-        public string UsersApiEmail { get; set; } = string.Empty;
-
-        public DateTime RequestTime { get; set; } = DateTime.UtcNow;
+        [JsonIgnore] public DateTime RequestTime { get; set; } = DateTime.UtcNow;
 
 
         public virtual bool Validate()
@@ -19,6 +19,7 @@ namespace authentication.domain.Commands
             AddNotifications(new Contract<Notification>()
                 .Requires().IsTrue(RequestPersonId != Guid.Empty, "RequestPersonId is required")
             );
+            Console.WriteLine("BaseCommand.Validate()");
             return IsValid;
         }
     }

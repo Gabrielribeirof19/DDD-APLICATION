@@ -12,6 +12,8 @@ namespace authentication.domain.Commands
 
         object? GetData();
 
+        string? GetToken();
+
         CommandResult GetResult();
     }
 
@@ -22,7 +24,8 @@ namespace authentication.domain.Commands
                     string? message = null,
                     object? data = null,
                     string? exceptionMessage = null,
-                    string? innerExceptionMessage = null)
+                    string? innerExceptionMessage = null,
+                    string? token = null)
         {
             HttpStatusCode = httpStatusCode;
             Success = success;
@@ -30,6 +33,7 @@ namespace authentication.domain.Commands
             Data = data;
             ExceptionMessage = exceptionMessage;
             InnerExceptionMessage = innerExceptionMessage;
+            Token = token;
 
             if (ExceptionMessage != null)
             {
@@ -48,11 +52,14 @@ namespace authentication.domain.Commands
         public object? Data { get; set; }
         public string? ExceptionMessage { get; set; }
         public string? InnerExceptionMessage { get; set; }
+        public string? Token { get; set; }
 
         public HttpStatusCode GetStatus() => this.HttpStatusCode;
         public bool Succeeded() => this.Success;
         public string GetMessage() => this.Message;
         public object? GetData() => this.Data;
+
+        public string? GetToken() => this.Token;
         public CommandResult GetResult() => this;
 
         public bool IsSuccess()
@@ -65,8 +72,9 @@ namespace authentication.domain.Commands
         public SuccessCommandResult(
             object? data = null,
             string? message = null,
+            string? token = null,
             HttpStatusCode httpStatusCode = HttpStatusCode.OK)
-            : base(httpStatusCode, true, message, data)
+            : base(httpStatusCode, true, message, data, token)
         { }
     }
     public class NoContentCommandResult : CommandResult

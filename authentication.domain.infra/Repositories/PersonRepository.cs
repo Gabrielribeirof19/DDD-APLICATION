@@ -14,7 +14,14 @@ namespace authentication.domain.Infra.Repositories
 
         public async Task<Person?> GetByCpf(string cpf)
         {
-            return await Task.Run(() => _context.Persons!.IsActive().Where(x => x.Cpf == cpf).FirstOrDefault());
+            var cpfExists = await Task.Run(() => _context.Persons!.IsActive().Where(x => x.Cpf == cpf).FirstOrDefault());
+            Console.WriteLine(cpfExists);
+            return cpfExists;
+        }
+
+        public async Task<Person?> GetByEmail(string Email)
+        {
+            return await Task.Run(() => _context.Persons!.IsActive().Where(x => x.Email.Any(y => y.Address == Email)).FirstOrDefault());
         }
     }
 }

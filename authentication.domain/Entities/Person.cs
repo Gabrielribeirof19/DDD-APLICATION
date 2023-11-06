@@ -1,3 +1,5 @@
+using authentication.Domain.Entities;
+
 namespace authentication.domain.entities
 {
     public abstract class BasePerson : Entity
@@ -13,9 +15,10 @@ namespace authentication.domain.entities
     {
         public List<Entities.Address> Addresses { get; set; } = new();
 
-        public List<Entities.Email> Emails { get; set; } = new();
-
         public ValueObjects.Password? Password { get; set; } = new();
+
+        public List<Entities.Email> Email { get; set; } = new();
+        public List<Role> Roles { get; set; } = new();
 
     }
 }
